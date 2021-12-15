@@ -134,6 +134,11 @@ def get_profile_from_env():
     ocr_type = os.environ['ocrType']
     send_type = os.environ['sendType']
     send_key = os.environ['sendKey']
+    api_url = os.environ['apiUrl']
+    access_token = os.environ['accessToken']
+    user_id = os.environ['userId']
+    group_id = os.environ['groupId']
+    at_user = os.environ['atUser']
     send_mode = os.environ['sendMode']
     ext_users = os.environ['extUsers']
     accounts = []
@@ -150,7 +155,9 @@ def get_profile_from_env():
         accounts.append(account)
     return username, pwd, pub_key, \
            api_key, secret_key, ocr_type, \
-           send_type, send_key, send_mode, accounts
+           send_type, send_key, api_url, \
+           access_token, user_id, group_id, \
+           at_user, send_mode, accounts
 
 
 def login(username, pwd, pub_key):
@@ -189,19 +196,28 @@ def init_ocr(ocr_type: str, ak: str, sk: str):
     logging.info(f"使用 OCR {ocr_type}")
 
 
-def init_sender(send_type, send_key, send_mode):
+def init_sender(send_type, send_key, api_url, access_token, user_id, group_id, at_user, send_mode):
     if send_type is None or send_type == '':
         return
-    if send_key is None or send_key == '':
-        error_exit('缺少配置信息: send_key')
+    if send_key is None or send_key == '' and send_type == 'server_chan':
+        error_exit('缺少配置信息:send_key')
+    elif api_url is None or api_url == '' and send_type == 'qqbot':
+          error_exit('缺少配置信息:api_url')
+    elif access_token is None or access_token == '' and send_type == 'qqbot':
+          error_exit('缺少配置信息:access_token')
+    elif user_id is None or user_id == '' and send_type == 'qqbot':
+          error_exit('缺少配置信息:user_id')
     else:
-        try:
-            send_util['sender'] = importlib.import_module(f"send_module.{send_type}.sender")
-        except ModuleNotFoundError:
-            error_exit("消息推送类型不存在，请更换类型")
-
         send_util['enable'] = True
-        send_util['sender'].set_key(send_key)
+        send_util['sender'] = importlib.import_module(f"send_module.{send_type}.sender")
+        if send_type == 'server_chan':
+            send_util['sender'].set_key(send_key)
+        elif send_type == 'qqbot':
+              send_util['sender'].set_api_url(api_url)
+              send_util['sender'].set_access_token(access_token)
+              send_util['sender'].set_user_id(user_id)
+              send_util['sender'].set_group_id(group_id)
+              send_util['sender'].set_at_user(at_user)
         if send_mode is not None and send_mode != "":
             send_util['mode'] = send_mode
 
@@ -257,8 +273,9 @@ def run(use_config: bool):
     # get default config
     username, pwd, pub_key, \
     api_key, secret_key, ocr_type, \
-    send_type, send_key, send_mode, \
-    accounts = get_profile_from_config() if use_config else get_profile_from_env()
+    send_type, send_key, api_url, \
+    access_token, user_id, group_id, \
+    at_user, send_mode, accounts = get_profile_from_config() if use_config else get_profile_from_env()
     # init ocr module
     init_ocr(ocr_type, api_key, secret_key)
     # init sender

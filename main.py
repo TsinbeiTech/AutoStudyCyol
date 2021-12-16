@@ -279,7 +279,7 @@ def run(use_config: bool):
     # init ocr module
     init_ocr(ocr_type, api_key, secret_key)
     # init sender
-    init_sender(send_type, send_key, send_mode)
+    init_sender(send_type, send_key, api_url, access_token, user_id, group_id, at_user, send_mode)
     # study proc
     if accounts is not None and len(accounts) > 0:
         if pwd is not None and username is not None and pwd != "" and username != "":

@@ -1,14 +1,18 @@
 # 青年大学习/团课自动打卡
 
-![](https://github.com/838239178/tk-auto-study/workflows/auto-study/badge.svg) ![](https://img.shields.io/github/stars/838239178/tk-auto-study) ![](https://img.shields.io/github/forks/838239178/tk-auto-study) ![](https://img.shields.io/badge/Python-3.7+-green.svg)
+![](https://github.com/TsinbeiTech/AutoStudyCyol/workflows/auto-study/badge.svg) ![](https://img.shields.io/github/stars/838239178/tk-auto-study) ![](https://img.shields.io/github/forks/838239178/tk-auto-study) ![](https://img.shields.io/badge/Python-3.7+-green.svg)
 
 [此处展示重要更新日志，完整日志搓这里](./doc/Log.md)
 
 > **2021.09.28**：:warning: **[重要更新]** 修复登录异常问题 更换了 **密钥(pubKey)** 和加密方法 请务必fork此最新版本并更换配置文件的public或github_secret的pub_key！
 > 
-> 2021.10.02: 新增消息推送功能——微信Server酱
+> 2021.10.02: 新增消息推送渠道——微信Server酱
+>
+> 2021.11.10：新增消息推送渠道——基于Go-CQHTTP的QQ机器人
 >
 > 2021.12.07: 新增多人打卡功能
+>
+> 2021.12.16：使用团队账号fork此项目，并在新版基础上重写了Go-CQHTTP的推送
 
 🤺妈妈再也不用担心我团课没看被团支书赶着催了
 

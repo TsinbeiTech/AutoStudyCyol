@@ -5,8 +5,8 @@ on:
   
   pull_request:
     branches: [ develop, master ]
-#  schedule:
-#    - cron: 0 6 * * 3
+  schedule:
+    - cron: 0 6 * * 3
 
 jobs:
   build:
@@ -24,7 +24,7 @@ jobs:
       run:
         pip3 install requests pycryptodome gmssl
          
-    - name: Auto Study
+    - name: Auto study cyol
       env:
         username: ${{secrets.USERNAME}}
         password: ${{secrets.PWD}}

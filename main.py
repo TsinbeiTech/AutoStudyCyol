@@ -212,7 +212,7 @@ def init_sender(send_type, send_key, api_url, access_token, user_id, group_id, a
         send_util['sender'] = importlib.import_module(f"send_module.{send_type}.sender")
         if send_type == 'server_chan':
             send_util['sender'].set_key(send_key)
-        elif send_type == 'qqbot':
+        elif send_type == 'go_cqhttp':
               send_util['sender'].set_api_url(api_url)
               send_util['sender'].set_access_token(access_token)
               send_util['sender'].set_user_id(user_id)

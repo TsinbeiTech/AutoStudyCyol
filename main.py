@@ -201,11 +201,11 @@ def init_sender(send_type, send_key, api_url, access_token, user_id, group_id, a
         return
     if send_key is None or send_key == '' and send_type == 'server_chan':
         error_exit('缺少配置信息:send_key')
-    elif api_url is None or api_url == '' and send_type == 'qqbot':
+    elif api_url is None or api_url == '' and send_type == 'go_cqhttp':
           error_exit('缺少配置信息:api_url')
-    elif access_token is None or access_token == '' and send_type == 'qqbot':
+    elif access_token is None or access_token == '' and send_type == 'go_cqhttp':
           error_exit('缺少配置信息:access_token')
-    elif user_id is None or user_id == '' and send_type == 'qqbot':
+    elif user_id is None or user_id == '' and send_type == 'go_cqhttp':
           error_exit('缺少配置信息:user_id')
     else:
         send_util['enable'] = True

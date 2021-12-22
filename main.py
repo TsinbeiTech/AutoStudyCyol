@@ -62,7 +62,7 @@ def get_validate_code() -> str:
     max_try = 5
     has_try = 0
     while has_try < max_try:
-        resp = sess.get(url="https://m.fjcyl.com/validateCode?0.123123&width=58&height=19&num=4")
+        resp = sess.get(url="https://api.tsinbei.com/getCode.php")
         try:
             # noinspection PyUnresolvedReferences
             res = ocr_util.get_result(base64.b64encode(resp.content))
